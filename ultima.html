@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+      body {
+        transition: background-color 1s;
+        font-family: Arial, sans-serif;
+        color: black(7,7,7);
+        text-align: center;
+        padding-top: 70px;
+      }
+      button {
+        padding: 20px;
+        font-size: 16px;
+        margin-top: 20px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+      }
+      @media(max-width: 768px){
+        body{
+            font-size: 35px; padding-top: 50px;}
+         button {font-size: 14px;padding: 16px;}
+        }
+      
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="titulo"> Bem vindo(a)!</h1>
+    <p>Clique no botao para ver a mensagem</p>
+    <button onclick="mudar()">ver</button>
+
+    <script>
+
+        function mudar(){
+            const hora = new Date().getHours();
+            let cor;
+            let mensagem;
+
+            if (hora >= 6 && hora < 12){
+                cor= "#FFD700"; // dourado manhã
+                mensagem = "Bom dia!";
+            } else if (hora >= 12 && hora <18){
+                cor = "#FF8C00"; // laranja tarde
+                mensagem = "Boa tarde!";
+            } else if (hora >=18 && hora <23){
+                 cor = "#1E90FF"; // azul crepúsculo+
+                 mensagem = "Boa noite!";
+            } else {
+                cor = "#2F4F4F"; // cinza escuro madrugada
+                mensagem = "Hora de descansar!";
+        }
+
+        document.body.style.backgroundColor = cor;
+        document.getElementById("titulo").innerHTML = mensagem;
+        }
+
+
+    </script>
+</body>
+</html>
