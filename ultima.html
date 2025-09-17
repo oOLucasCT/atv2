@@ -30,49 +30,78 @@
     <title>Document</title>
 </head>
 <body>
-    <h1 id="titulo"> Bem vindo(a)!</h1>
-    <p id="frase">Clique no botao para ver a mensagem</p>
+    <h1 id="mensage"></h1>
     <p id="hora"></p>
     <p id="data"></p>
-
-    <button onclick="mudar()">ver</button>
+    <p id="frase"></p>
 
     <script> 
 
-        function mudar(){
+        function tempo(){
             const agora = new Date();
             const hora = agora.getHours();
             const minutos = agora.getMinutes().toString().padStart(2, "0");
+            const segundos = agora.getSeconds().toString().padStart(2, "0");
             const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
             };
-            const dataFormatada = agora.toLocaleDateString("pt-BR", opcoes);
-
-            
+            const dataFormatada = agora.toLocaleDateString("pt-BR", opcoes);          
             let cor;
             let mensagem;
 
             if (hora >= 6 && hora < 12){
                 cor= "#FFD700"; // dourado manhã
                 mensagem = "Bom dia!";
+                frases = [
+                    "Bom Dia",
+                    "bOm dIa",
+                    "boM diA"
+                ]
             } else if (hora >= 12 && hora <18){
                 cor = "#FF8C00"; // laranja tarde
                 mensagem = "Boa tarde!";
+                frases = [
+                    ".....................",
+                    "............",
+                    "......"
+                ]
+
             } else if (hora >=18 && hora <23){
                  cor = "#1E90FF"; // azul crepúsculo+
                  mensagem = "Boa noite!";
+                 frases = [
+                    ".....................",
+                    "............",
+                    "......"
+                ]
             } else {
                 cor = "#2F4F4F"; // cinza escuro madrugada
                 mensagem = "Hora de descansar!";
+                frases = [
+                    ".....................",
+                    "............",
+                    "......"
+                ]
         }
         
         document.body.style.backgroundColor = cor;
-        document.getElementById("titulo").innerHTML = mensagem;
-        document.getElementById("frase").innerHTML= " ";
-        document.getElementById("hora").innerHTML= "Agora são: "+ hora + ":" + minutos;
+        document.getElementById("mensage").innerHTML= mensagem
+        document.getElementById("hora").innerHTML= "Agora são: "+ hora + ":" + minutos + ":" + segundos;
         document.getElementById("data").innerHTML= dataFormatada;
+    
+        
+        let frases = []
+        function trocaFrase(){
+            if(frases.length > 0){
+                const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
+                document.getElementById("frases").innerHTML = fraseAleatoria;
+            }
+        }
         }
 
-
+        tempo();
+        setInterval(tempo, 1000);
+        trocaFrase();
     </script>
+
 </body>
 </html>
