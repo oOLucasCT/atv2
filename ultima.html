@@ -6,11 +6,18 @@
 
     <style>
       body {
-        transition: background-color 1s;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-family: Arial, sans-serif;
-        color: black(7,7,7);
+        color: black;
         text-align: center;
         padding-top: 70px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
       }
       button {
         padding: 20px;
@@ -20,20 +27,34 @@
         border: none;
         border-radius: 5px;
       }
-      @media(max-width: 768px){
-        body{
-            font-size: 35px; padding-top: 50px;}
-         button {font-size: 14px;padding: 16px;}
+      @media(max-width: 480px){
+            h1 { font-size: 22px; }
+            p { font-size: 14px; }
+            #container{ width: 70%; }
         }
+
+        .container{
+            margin: auto;
+            width: 300px;
+            border-radius: 7px;
+            background-color: aliceblue;    
+            opacity: 0.7;
+        }
+
+            
       
     </style>
-    <title>Document</title>
+
+  <title>atv2</title>
 </head>
 <body>
+    <div class="container">
     <h1 id="mensage"></h1>
     <p id="hora"></p>
     <p id="data"></p>
+    <p id="dia"></p>
     <p id="frase"></p>
+    </div>
 
     <script> 
 
@@ -42,65 +63,78 @@
             const hora = agora.getHours();
             const minutos = agora.getMinutes().toString().padStart(2, "0");
             const segundos = agora.getSeconds().toString().padStart(2, "0");
-            const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-            };
-            const dataFormatada = agora.toLocaleDateString("pt-BR", opcoes);          
+            const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+            const dataFormatada = agora.toLocaleDateString("pt-BR", opcoes); 
+            const dia = agora.getDay();         
             let cor;
             let mensagem;
+            let imagem;
 
             if (hora >= 6 && hora < 12){
-                cor= "#FFD700"; // dourado manhã
-                mensagem = "Bom dia!";
+                /*cor = "#FFD700";*/ // dourado manhã
+                imagem = "url('dia.jpeg')"
+                mensagem = "Bom dia!☀️";
                 frases = [
-                    "Bom Dia",
-                    "bOm dIa",
-                    "boM diA"
+                    "Que seu dia seja iluminado!",
+                    "Aproveite a manhã.",
+                    "Comece com energia!"
                 ]
             } else if (hora >= 12 && hora <18){
-                cor = "#FF8C00"; // laranja tarde
-                mensagem = "Boa tarde!";
+                cor = "#FF8C00"; // laranja tarde                
+                mensagem = "Boa tarde!🌥️";
                 frases = [
-                    ".....................",
-                    "............",
-                    "......"
+                    "Hora do café!",
+                    "Mantenha o foco!",
+                    "Siga em frente!"
                 ]
 
             } else if (hora >=18 && hora <23){
                  cor = "#1E90FF"; // azul crepúsculo+
-                 mensagem = "Boa noite!";
+                 mensagem = "Boa noite!🌙";
                  frases = [
-                    ".....................",
-                    "............",
-                    "......"
+                    "Hora de relaxar.",
+                    "Durma bem.",
+                    "Sonhos tranquilos."
                 ]
             } else {
                 cor = "#2F4F4F"; // cinza escuro madrugada
-                mensagem = "Hora de descansar!";
+                mensagem = "Hora de descansar!🌑";
                 frases = [
-                    ".....................",
-                    "............",
-                    "......"
+                    "A noite traz paz.",
+                    "Repouse a mente.",
+                    "Amanhã é um novo dia."
                 ]
         }
-        
-        document.body.style.backgroundColor = cor;
-        document.getElementById("mensage").innerHTML= mensagem
-        document.getElementById("hora").innerHTML= "Agora são: "+ hora + ":" + minutos + ":" + segundos;
+
+        if (dia <= 5){
+                fraseDia = "hoje é dia util, foco nas atividades"
+            }
+            else{
+                fraseDia = "dia de descançar"
+            }
+
+        document.body.style.backgroundColor= cor;
+        document.body.style.backgroundImage= imagem;
+        document.getElementById("mensage").innerHTML= mensagem;
+        document.getElementById("hora").innerHTML= "Agora são: " + hora + ":" + minutos + ":" + segundos;
         document.getElementById("data").innerHTML= dataFormatada;
-    
-        
+        document.getElementById("dia").innerHTML= fraseDia;
+
+        }
+
         let frases = []
         function trocaFrase(){
             if(frases.length > 0){
                 const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
-                document.getElementById("frases").innerHTML = fraseAleatoria;
+                document.getElementById("frase").innerHTML = fraseAleatoria;
             }
         }
-        }
+
 
         tempo();
         setInterval(tempo, 1000);
         trocaFrase();
+        setInterval(trocaFrase, 3000)
     </script>
 
 </body>
